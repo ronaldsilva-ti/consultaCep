@@ -7,7 +7,9 @@ import
     StyleSheet, 
     TextInput,
     TouchableOpacity,
-    Alert
+    Alert,
+    TouchableWithoutFeedback,
+    Keyboard
  } from 'react-native';
 
 export default function Home(){
@@ -34,6 +36,7 @@ export default function Home(){
             .then(data => {
                 setCepSearch(data)
                 setmostraList(true)
+                Keyboard.dismiss()
             }))
             .catch(error => {                
                 Alert.alert(
@@ -44,34 +47,40 @@ export default function Home(){
             })   
     }
 
+    function encerrarTeclado(){
+        Keyboard.dismiss()
+    }
+
     return (
-        <View>
-            <Text style={styles.title}>CONSULTA CEP</Text>
-            <TextInput 
-                style={styles.input}
-                onChangeText={text => setCep(text) }
-                keyboardType='numeric'
-                maxLength={8}
-             />
+        <TouchableWithoutFeedback onPress={() => encerrarTeclado()}>
+            <View>
+                <Text style={styles.title}>CONSULTA CEP</Text>
+                <TextInput 
+                    style={styles.input}
+                    onChangeText={text => setCep(text) }
+                    keyboardType='numeric'
+                    maxLength={8}
+                />
 
-            <TouchableOpacity  onPress={() => BuscarCep()} style={styles.appButtonContainer}>
-                <Text style={styles.appButtonText}>CONSULTAR</Text>
-            </TouchableOpacity>
+                <TouchableOpacity  onPress={() => BuscarCep()} style={styles.appButtonContainer}>
+                    <Text style={styles.appButtonText}>CONSULTAR</Text>
+                </TouchableOpacity>
 
-           {
-               mostraList && (
-                <View style={styles.containerResult}>          
-                    <View style={styles.labelContainer}>
-                        <Text style={styles.label}>CEP: {cepSearch.cep}</Text>
-                        <Text style={styles.label}>CIDADE: {cepSearch.localidade}</Text>
-                        <Text style={styles.label}>RUA: {cepSearch.logradouro}</Text>
-                        <Text style={styles.label}>BAIRRO: {cepSearch.bairro}</Text>
-                        <Text style={styles.label}>UF: {cepSearch.uf}</Text>
+            {
+                mostraList && (
+                    <View style={styles.containerResult}>          
+                        <View style={styles.labelContainer}>
+                            <Text style={styles.label}>CEP: {cepSearch.cep}</Text>
+                            <Text style={styles.label}>CIDADE: {cepSearch.localidade}</Text>
+                            <Text style={styles.label}>RUA: {cepSearch.logradouro}</Text>
+                            <Text style={styles.label}>BAIRRO: {cepSearch.bairro}</Text>
+                            <Text style={styles.label}>UF: {cepSearch.uf}</Text>
+                        </View>
                     </View>
-                </View>
-               )
-           }
-        </View>
+                )
+            }
+            </View>
+        </TouchableWithoutFeedback>
 
         
     )
