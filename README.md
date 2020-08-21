@@ -14,7 +14,7 @@ React Native - Consulta CEP
 
 5.```npx react-native run-android ```
 
-6. For IOS ```npx react-native run-ios```
+6.For IOS ```npx react-native run-ios```
 
 
 ### Screenshot
