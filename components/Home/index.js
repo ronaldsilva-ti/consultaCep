@@ -1,21 +1,34 @@
 import React,{ useState } from 'react';
 
-import { Text, StyleSheet, TextInput, TouchableOpacity  } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity  } from 'react-native';
 
 export default function Home(){
 
-    const [ cep, setCep ] = useState('')
+    const [ cep, setCep ] = useState('');
 
+    
+
+    function BuscarCep(){
+        const buscaAPI = `https://viacsep.com.br/ws/${cep}/json/`;
+        fetch(buscaAPI)
+            .then((response) => response.json()
+            .then((data) => console.log(data)))
+            .catch(error => console.log(error))
+    }
 
     return (
-        <>
+        <View>
             <Text style={styles.title}>CONSULTA CEP</Text>
-            <TextInput style={styles.input} />
+            <TextInput 
+                style={styles.input}
+                onChangeText={text => setCep(text) }
+                keyboardType='numeric'
+             />
 
-            <TouchableOpacity style={styles.appButtonContainer}>
-                <Text style={styles.appButtonText} >CONSULTAR</Text>
+            <TouchableOpacity  onPress={() => BuscarCep()} style={styles.appButtonContainer}>
+                <Text style={styles.appButtonText}>CONSULTAR</Text>
             </TouchableOpacity>
-        </>
+        </View>
     )
 }
 
