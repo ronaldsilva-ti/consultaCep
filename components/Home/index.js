@@ -1,19 +1,47 @@
 import React,{ useState } from 'react';
 
-import { View, Text, StyleSheet, TextInput, TouchableOpacity  } from 'react-native';
+import
+{
+    View,
+    Text,
+    StyleSheet, 
+    TextInput,
+    TouchableOpacity,
+    Alert
+ } from 'react-native';
 
 export default function Home(){
 
     const [ cep, setCep ] = useState('');
+    const [ cepSearch, setCepSearch] = useState([]);
+    const [ mostraList, setmostraList ] = useState(false)    
 
     
-
     function BuscarCep(){
-        const buscaAPI = `https://viacsep.com.br/ws/${cep}/json/`;
+
+        if(cep.trim() === ''){           
+             Alert.alert(
+                "ERRO",
+                "CEP não pode ser vazio"
+            )
+            return;
+        }
+
+
+        const buscaAPI = `https://viacep.com.br/ws/${cep}/json/`;
         fetch(buscaAPI)
             .then((response) => response.json()
-            .then((data) => console.log(data)))
-            .catch(error => console.log(error))
+            .then(data => {
+                setCepSearch(data)
+                setmostraList(true)
+            }))
+            .catch(error => {                
+                Alert.alert(
+                    "ERRO",
+                    "ERRO AO BUSCAR CEP"
+                )
+                console.log(error)
+            })   
     }
 
     return (
@@ -23,12 +51,29 @@ export default function Home(){
                 style={styles.input}
                 onChangeText={text => setCep(text) }
                 keyboardType='numeric'
+                maxLength={8}
              />
 
             <TouchableOpacity  onPress={() => BuscarCep()} style={styles.appButtonContainer}>
                 <Text style={styles.appButtonText}>CONSULTAR</Text>
             </TouchableOpacity>
+
+           {
+               mostraList && (
+                <View style={styles.containerResult}>          
+                    <View style={styles.labelContainer}>
+                        <Text style={styles.label}>CEP: {cepSearch.cep}</Text>
+                        <Text style={styles.label}>CIDADE: {cepSearch.localidade}</Text>
+                        <Text style={styles.label}>RUA: {cepSearch.logradouro}</Text>
+                        <Text style={styles.label}>BAIRRO: {cepSearch.bairro}</Text>
+                        <Text style={styles.label}>UF: {cepSearch.uf}</Text>
+                    </View>
+                </View>
+               )
+           }
         </View>
+
+        
     )
 }
 
@@ -60,5 +105,24 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         alignSelf: "center",
         textTransform: "uppercase"
-      }
+      },
+      containerResult: {         
+          backgroundColor:'#08A0EB',
+          height:200,
+          marginTop:50,
+          borderRadius:10,
+          marginHorizontal:5, 
+      },
+      labelContainer:{
+       display:"flex",
+       marginVertical:20,
+       margin:10
+      },
+      label:{
+        fontSize:25,
+        color:'white',
+        
+      },
+  
+    
 })
