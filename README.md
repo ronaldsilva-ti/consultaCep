@@ -2,9 +2,20 @@
 React Native - Consulta CEP
 
 
+1.Install Node.js
+
+2.```git clone https://github.com/ronaldsilva-ti/consultaCep.git```
+
+3.```cd consultaCep```
+
+4.```npm install```
+
+5.```npx react-native start ```
+
+5.```npx react-native run-android ```
+
+6. For IOS ```npx react-native run-ios```
 
 
-![Screenshot_1598049800](https://user-images.githubusercontent.com/57809579/90941517-b8c41f00-e3e8-11ea-8e2b-3e52a852febb.png)
+### Screenshot
 
-
-![Screenshot_1598049845](https://user-images.githubusercontent.com/57809579/90941519-b9f54c00-e3e8-11ea-93d6-d34d99514f82.png)
