@@ -1,0 +1,1 @@
+const api = 'https://viacep.com.br/ws/36600000/json/';
