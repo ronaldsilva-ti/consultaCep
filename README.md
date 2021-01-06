@@ -20,6 +20,5 @@ For IOS
 
 ### Screenshot
 
-![Sem título](https://user-images.githubusercontent.com/57809579/90942056-7c91be00-e3ea-11ea-95cd-cb4205bddaaf.png)
 
 ![2](https://user-images.githubusercontent.com/57809579/90942141-e1e5af00-e3ea-11ea-85fc-b450050c9bf3.png)
